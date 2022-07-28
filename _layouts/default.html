@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -7,4 +7,87 @@
 	<body>
 		{{ content }}
 	</body>
+</html> -->
+
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@CharlesIsMeee 
+sighingnow
+/
+jekyll-gitbook
+Public
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+jekyll-gitbook/_layouts/home.html
+@sighingnow
+sighingnow Implements the "keep the header" features requested in #18.
+…
+Latest commit 0cbb5a2 on 27 Mar
+ History
+ 1 contributor
+53 lines (43 sloc)  1.64 KB
+
+<!DOCTYPE HTML>
+<html lang="en" >
+    <head>
+
+        {%- include head.html -%}
+
+        {% assign reversed_posts = site.posts | reverse %}
+
+        {% if reversed_posts %}
+            <link rel="next" href="{{site.baseurl}}{{reversed_posts.first.url}}" />
+        {% endif %}
+    </head>
+    <body>
+        <div class="book">
+
+            {%- include toc-date.html -%}
+
+            <div class="book-body">
+                <div class="book-header" role="navigation">
+                    <!-- Title -->
+                    <h1>
+                        <i class="fa fa-circle-o-notch fa-spin"></i>
+                        {% if page.title %}
+                            <a href="." >{{ page.title | escape }}</a>
+                        {% else %}
+                            <a href="." >{{ site.title | escape }}</a>
+                        {% endif %}
+                    </h1>
+                </div>
+
+                <div class="body-inner">
+                    {%- include body.html -%}
+
+                    {% if reversed_posts %}
+                        <a href="{{site.baseurl}}{{reversed_posts.first.url}}" class="navigation navigation-next navigation-unique" aria-label="Next page: {{reversed_posts.first.title}}">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <script>
+            var gitbook = gitbook || [];
+            gitbook.push(function() {
+                gitbook.page.hasChanged({%- include metadata-home.json.tpl -%});
+            });
+            </script>
+        </div>
+
+        {%- include footer.html -%}
+
+    </body>
 </html>
